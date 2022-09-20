@@ -17,6 +17,10 @@ body {
     align-items: center;
 }
 
+.cp {
+    cursor: pointer;
+}
+
 /* HEADER */
 .mainContainer {
     max-width: 1024px;

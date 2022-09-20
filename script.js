@@ -33,13 +33,33 @@ function render(){
 
 function renderLetters(){
     let renderFirstLetter = document.getElementById('firstLetters');
+    renderFirstLetter.innerHTML = '';
 
     for (let i = 0; i < bundeslaender[0].length; i++) {
         const element = bundeslaender[0][i]['name'][0];
         renderFirstLetter.innerHTML += `
-            <div class="letterBox allCenter">
+            <div onclick="filterByFirstLetter('${element}')" class="letterBox allCenter cp">
                 ${element}
             </div>
         `;
+    }
+}
+
+
+function filterByFirstLetter(element){
+    let renderLand = document.getElementById('renderContainer');
+    renderLand.innerHTML = '';
+    for (let i = 0; i < bundeslaender[0].length; i++) {
+        const arrayBundesland = bundeslaender[0][i];
+        if (arrayBundesland['name'][0] == element) {
+            renderLand.innerHTML += `
+                <a class="landBorder"  href="${element['url']}" target="_blank">
+                    <div class="landContainer">
+                        <div id="landContent" class="landContentStyling">${arrayBundesland['name']}</div>
+                        <span id="population" class="populationStyling">${arrayBundesland['population']} Millionen</span>
+                    </div>
+                </a>
+            `;
+        }
     }
 }
