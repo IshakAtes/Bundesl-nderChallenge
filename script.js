@@ -27,4 +27,19 @@ function render(){
             </a>
         `;
     }
+    renderLetters();
+}
+
+
+function renderLetters(){
+    let renderFirstLetter = document.getElementById('firstLetters');
+
+    for (let i = 0; i < bundeslaender[0].length; i++) {
+        const element = bundeslaender[0][i]['name'][0];
+        renderFirstLetter.innerHTML += `
+            <div class="letterBox allCenter">
+                ${element}
+            </div>
+        `;
+    }
 }

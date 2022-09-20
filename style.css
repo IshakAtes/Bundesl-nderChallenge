@@ -11,6 +11,12 @@ body {
     padding: 5px;
 }
 
+.allCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* HEADER */
 .mainContainer {
     max-width: 1024px;
@@ -54,6 +60,21 @@ header {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+}
+
+
+/* FIRST-LETTERS */
+.letterBox {
+    width: 30px;
+    margin-right: 5px;
+    height: 30px;
+    background-color: rgb(241, 241, 241);
+    color:#000;
+}
+
+#firstLetters {
+    display: flex;
+    margin-top: 10px;
 }
 
 
