@@ -1,4 +1,8 @@
 let bundeslaender = [];
+// let filteredLandContainers = 0;
+
+
+
 async function init() {
     await getData();
     render();
@@ -11,23 +15,31 @@ async function getData(){
     console.log(bundeslaender)
 }
 
-function render(){
+function render(letter){
     let renderLand = document.getElementById('renderContainer');
     document.getElementById('headline').innerHTML = 'BUNDESLÄNDER';
     renderLand.innerHTML = '';
 
     for (let i = 0; i < bundeslaender[0].length; i++) {
         const element = bundeslaender[0][i];
-        renderLand.innerHTML += `
-            <a class="landBorder"  href="${element['url']}" target="_blank">
-                <div class="landContainer">
-                    <div id="landContent" class="landContentStyling">${element['name']}</div>
-                    <span id="population" class="populationStyling">${element['population']} Millionen</span>
-                </div>
-            </a>
-        `;
+        const firstLetter = bundeslaender[0][i]['name'][0];
+
+        if (!letter || letter == firstLetter) {
+            renderLand.innerHTML += generateLandContainerHTML(element);
+        }
     }
     renderLetters();
+}
+
+function generateLandContainerHTML(element){
+    return `
+        <a class="landBorder"  href="${element['url']}" target="_blank">
+            <div class="landContainer">
+                <div id="landContent" class="landContentStyling">${element['name']}</div>
+                <span id="population" class="populationStyling">${(element['population'] + '').replace('.', ',')} Millionen</span>
+            </div>
+        </a>
+    `;
 }
 
 
@@ -39,30 +51,20 @@ function renderLetters(){
         const element = bundeslaender[0][i]['name'][0];
         let letterExist = document.getElementById(`${element}`);
         if (!letterExist) {
-            renderFirstLetter.innerHTML += `
-                <div onclick="filterByFirstLetter('${element}')" id="${element}" class="letterBox allCenter cp">
-                    ${element}
-                </div>
-            `;
+            renderFirstLetter.innerHTML += generateFirstLetterHTML(element);
         }
     }
 }
 
+function generateFirstLetterHTML(element){
+    return `
+        <div onclick="filterByFirstLetter('${element}')" id="${element}" class="letterBox allCenter cp">
+            ${element}
+        </div>
+    `;
+}
 
-function filterByFirstLetter(element){
-    let renderLand = document.getElementById('renderContainer');
-    renderLand.innerHTML = '';
-    for (let i = 0; i < bundeslaender[0].length; i++) {
-        const arrayBundesland = bundeslaender[0][i];
-        if (arrayBundesland['name'][0] == element) {
-            renderLand.innerHTML += `
-                <a class="landBorder"  href="${element['url']}" target="_blank">
-                    <div class="landContainer">
-                        <div id="landContent" class="landContentStyling">${arrayBundesland['name']}</div>
-                        <span id="population" class="populationStyling">${arrayBundesland['population']} Millionen</span>
-                    </div>
-                </a>
-            `;
-        }
-    }
+
+function filterByFirstLetter(letter){
+    render(letter);
 }
