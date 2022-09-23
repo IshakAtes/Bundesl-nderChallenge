@@ -37,11 +37,14 @@ function renderLetters(){
 
     for (let i = 0; i < bundeslaender[0].length; i++) {
         const element = bundeslaender[0][i]['name'][0];
-        renderFirstLetter.innerHTML += `
-            <div onclick="filterByFirstLetter('${element}')" class="letterBox allCenter cp">
-                ${element}
-            </div>
-        `;
+        let letterExist = document.getElementById(`${element}`);
+        if (!letterExist) {
+            renderFirstLetter.innerHTML += `
+                <div onclick="filterByFirstLetter('${element}')" id="${element}" class="letterBox allCenter cp">
+                    ${element}
+                </div>
+            `;
+        }
     }
 }
 
